@@ -34,7 +34,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers("/hello").permitAll()
-                        .requestMatchers("api/**").authenticated());
+                        .requestMatchers("api/**").authenticated())
+                .formLogin();
         return http.build();
     }
 
