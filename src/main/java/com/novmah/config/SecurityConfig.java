@@ -28,19 +28,14 @@ public class SecurityConfig {
         return new UserInfoService(repository);
     }
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/hello").permitAll()
-                .and()
-                .authorizeHttpRequests()
-                .requestMatchers("api/**").authenticated()
-                .and().formLogin()
-                .and().build();
-
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth->auth
+                        .requestMatchers("/hello").permitAll()
+                        .requestMatchers("api/**").authenticated());
+        return http.build();
     }
 
     @Bean
